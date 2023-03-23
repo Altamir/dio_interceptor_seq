@@ -1,0 +1,10 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:  
+  rules:   
+    require_trailing_commas: true
+    sort_pub_dependencies: false
+    non_constant_identifier_names: false
+    constant_identifier_names: false
+    depend_on_referenced_packages: false
+    todo: false
