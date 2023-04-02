@@ -48,6 +48,10 @@ final seqLoggingInterceptor = SeqLoggingInterceptor(
 );
 ```
 
+### Exemplo logs
+
+![seq-screenshot](./example/imgs/seq-screenshot.png)
+
 ## Running Seq with Docker
 
 To run a Seq container using Docker, follow these steps:
@@ -62,9 +66,23 @@ To run a Seq container using Docker, follow these steps:
     mkdir seq_data
     ```
 4. Run a Seq container, mapping the created data directory to the container's /data folder and forwarding the default Seq port (5341):
+    ```bash  
+   PH=$(echo '<password>' | docker run --rm -i datalust/seq config hash)
+    ```
     ```bash
-    Copy code
-    docker run -d --name seq -v "$(pwd)/seq_data:/data" -p 5341:80 datalust/seq
+    mkdir -p <local path to store data>
+    ```
+    ```bash
+    docker run \
+    --name seq \
+    -d \
+    --restart unless-stopped \
+    -e ACCEPT_EULA=Y \
+    -e SEQ_FIRSTRUN_ADMINPASSWORDHASH="$PH" \
+    -v <local path to store data>:/data \
+    -p 80:80 \
+    -p 5341:5341 \
+    datalust/seq
     ```
    
     This command will run the Seq container in detached mode (-d), with a custom name (--name seq), map the local seq_data directory to the container's /data folder (-v), and forward the host's port 5341 to the container's port 80 (-p).

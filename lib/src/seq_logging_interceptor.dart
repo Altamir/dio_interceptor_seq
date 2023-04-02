@@ -54,7 +54,7 @@ class SeqLoggingInterceptor extends Interceptor {
         body: body,
       );
 
-      if (response.statusCode != 200) {
+      if (response.statusCode < 200 || response.statusCode >= 202) {
         if (kDebugMode) {
           print('$ERROR_SEND_TO_SEQ ${response.body}');
         }
