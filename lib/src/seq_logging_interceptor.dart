@@ -21,15 +21,19 @@ class SeqLoggingInterceptor extends Interceptor {
   /// The correlational ID is a UUID generated in the [onRequest] method. Defaults to 'X-Request-Seq-Id'.
   final String correlationalHeaderName;
 
+  final String? deviceIdentifier;
+
   /// Creates a new instance of the [SeqLoggingInterceptor].
   ///
   /// [seqUrl] is the URL of the Seq server.
   /// [apiKey] is an optional API key for the Seq server.
   /// [correlationalHeaderName] is the header name used for the correlational ID. Defaults to 'X-Request-Seq-Id'.
+  /// [deviceIdentifier] is an optional device identifier to be added to the log.
   SeqLoggingInterceptor(
     this.seqUrl, {
     this.apiKey,
     this.correlationalHeaderName = 'X-Request-Seq-Id',
+    this.deviceIdentifier,
   })  : assert(
           correlationalHeaderName.isNotEmpty,
           'The correlationalHeaderName cannot be empty',
@@ -92,6 +96,7 @@ class SeqLoggingInterceptor extends Interceptor {
       'data': options.data,
       'queryParams': options.queryParameters,
       'headers': options.headers,
+      'deviceIdentifier': deviceIdentifier ?? 'unknown',
     });
     _sendToSeq(clefEvent);
     super.onRequest(options, handler);
@@ -112,6 +117,7 @@ class SeqLoggingInterceptor extends Interceptor {
       'data': response.data,
       'headers': response.headers.map.map((k, v) => MapEntry(k, v.join(', '))),
       'elapsedTime': elapsedTime,
+      'deviceIdentifier': deviceIdentifier ?? 'unknown',
     });
     _sendToSeq(clefEvent);
     super.onResponse(response, handler);
@@ -132,6 +138,7 @@ class SeqLoggingInterceptor extends Interceptor {
       'errorData': err.response?.data,
       'headers': err.requestOptions.headers,
       'elapsedTime': elapsedTime,
+      'deviceIdentifier': deviceIdentifier ?? 'unknown',
     });
     _sendToSeq(clefEvent);
     super.onError(err, handler);
