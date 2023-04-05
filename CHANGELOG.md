@@ -1,3 +1,7 @@
+## 0.0.3
+
+* Add deviceIdentifier to the request.
+
 ## 0.0.2
 
 * Fixed a log error when status code is 302.
