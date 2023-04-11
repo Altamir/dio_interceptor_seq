@@ -1,3 +1,7 @@
+## 1.0.0
+
+* Update dio version and flutter version.
+
 ## 0.0.3
 
 * Add deviceIdentifier to the request.
