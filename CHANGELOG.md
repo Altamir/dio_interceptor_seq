@@ -1,3 +1,8 @@
+## 2.0.0
+
+* Update SDK version.
+* Add Event Type to the request, response and error logs.
+
 ## 1.0.0
 
 * Update dio version and flutter version.

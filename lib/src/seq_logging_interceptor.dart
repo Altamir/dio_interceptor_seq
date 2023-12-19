@@ -90,6 +90,7 @@ class SeqLoggingInterceptor extends Interceptor {
         DateTime.now().millisecondsSinceEpoch;
 
     final clefEvent = _createClefEvent(TEMPLATE_REQUEST, {
+      'event_type': 'REQUEST',
       'method': options.method,
       'path': options.path,
       'correlationalSeqID': correlationalSeqID,
@@ -111,6 +112,7 @@ class SeqLoggingInterceptor extends Interceptor {
     final elapsedTime = DateTime.now().millisecondsSinceEpoch - startTime;
 
     final clefEvent = _createClefEvent(TEMPLATE_RESPONSE, {
+      'event_type': 'RESPONSE',
       'statusCode': response.statusCode,
       'path': response.requestOptions.path,
       'correlationalSeqID': correlationalSeqID,
@@ -124,13 +126,14 @@ class SeqLoggingInterceptor extends Interceptor {
   }
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
     final correlationalSeqID =
         err.requestOptions.headers[correlationalHeaderName];
     final startTime = err.requestOptions.headers['X-Request-Start-Time'] as int;
     final elapsedTime = DateTime.now().millisecondsSinceEpoch - startTime;
 
     final clefEvent = _createClefEvent(TEMPLATE_ERRO, {
+      'event_type': 'ON_ERROR',
       'statusCode': err.response?.statusCode,
       'path': err.requestOptions.path,
       'correlationalSeqID': correlationalSeqID,
