@@ -1,5 +1,9 @@
 ## 2.0.0
 
+* Update http version.
+
+## 2.0.0
+
 * Update SDK version.
 * Add Event Type to the request, response and error logs.
 
