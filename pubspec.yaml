@@ -1,6 +1,6 @@
 name: dio_interceptor_seq
 description: An interceptor for the DIO client that sends request, response, and error logs to Seq.
-version: 2.0.0
+version: 2.0.1
 homepage: https://github.com/Altamir/dio_interceptor_seq
 
 environment:
@@ -9,7 +9,7 @@ environment:
 
 dependencies:
   dio: ^5.1.1 
-  http: ^0.13.5
+  http: ^1.1.0
   uuid: ^3.0.7
   flutter:
     sdk: flutter
