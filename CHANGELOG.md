@@ -1,3 +1,7 @@
+## 2.0.1
+
+* Update http version.
+
 ## 2.0.0
 
 * Update http version.
